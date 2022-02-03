@@ -1,3 +1,7 @@
+My dwarf2cpp custom fork, fix some exceptions to handle complicated ELF binary.
+Maybe there are still bugs, but it can output some results.
+
+
 # DWARF2CPP
 
 Tool for generating CPP class headers from DWARF debugging format. This program was made for my BSc Thesis.
