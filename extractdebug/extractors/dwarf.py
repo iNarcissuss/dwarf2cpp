@@ -322,7 +322,7 @@ class DwarfExtractor(Extractor):
 
         if existing_method.low_pc:
             existing_method.fully_defined = True
-            self._subprograms_incomplete.remove(existing_method)
+            self._subprograms_incomplete.discard(existing_method)
 
     def __parse_files_info(self, dwarf_info, structs, offset=0):
         files = {}

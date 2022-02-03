@@ -64,6 +64,8 @@ class OriginalCPPConverter(Converter):
         entries = defaultdict(EntriesStorage)
 
         for element in elements:
+            if not element:
+                continue
             if not element.decl_file:
                 continue
 
@@ -74,8 +76,10 @@ class OriginalCPPConverter(Converter):
                 continue
 
             decl_file = decl_files[file.id].full_path()
-            if b'<built-in>' in decl_file or not decl_file.startswith(self.result.base_dir):
+            if b'<built-in>' in decl_file:
                 continue
+            #if not decl_file.startswith(self.result.base_dir):
+            #    continue
 
             if isinstance(element, Namespace):
                 elements = list(self.__convert_elements(element.elements).values())
@@ -236,6 +240,8 @@ class OriginalCPPConverter(Converter):
 
     @staticmethod
     def type_string(type):
+        if not type:
+            return ''
         modifier_str = OriginalCPPConverter.type_modifiers_string(type.modifiers)
         name_parts = [x.decode('utf-8') for x in type.namespaces]
 
@@ -446,6 +452,8 @@ class CPPTypeDef(Entry):
         self.type = kwargs.get('type', Type(name=b'<<unknown>>'))
 
     def fill_value(self):
+        if not self.type:
+            return 0
         return 1 if self.type.name else 0
 
     def __repr__(self):
